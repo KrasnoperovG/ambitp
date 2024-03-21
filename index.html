@@ -265,6 +265,8 @@
                 'take': elem[3],
                 'stop': elem[4],
                 'trend': elem[5].toLocaleLowerCase(),
+                'once': elem[6],
+                'pause': elem[7]
             }
         }
 
@@ -297,6 +299,8 @@
                 'take': take,
                 'stop': stop,
                 'trend': trend,
+                'once': False,
+                'pause': False
             }
         }
 
@@ -306,6 +310,8 @@
             'take': '2',
             'stop': stop,
             'trend': 'buy',
+            'once': False,
+            'pause': False
         }
         console.log(symbols)
         console.log(dictionary)
@@ -395,11 +401,13 @@
             checkBoxOnce.setAttribute("type", "checkbox");
             checkBoxOnce.setAttribute("name", "once");
             checkBoxOnce.setAttribute("value", "once");
+            checkBoxOnce.setAttribute("checked", dic_work[word]['once']);
 
             checkBoxPause.setAttribute("id", "form."+index+"-pause");
             checkBoxPause.setAttribute("type", "checkbox");
             checkBoxPause.setAttribute("name", "pause");
             checkBoxPause.setAttribute("value", "pause");
+            checkBoxPause.setAttribute("checked", dic_work[word]['pause']);
             /*if (percent != 10) {
                 inputStop.setAttribute("value", Math.round(balance * percent / 100));
             }
