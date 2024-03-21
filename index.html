@@ -402,12 +402,12 @@
             checkBoxOnce.setAttribute("id", "form."+index+"-once");
             checkBoxOnce.setAttribute("type", "checkbox");
             checkBoxOnce.setAttribute("name", "once");
-            checkBoxOnce.setAttribute("checked", dic_work[word]['once']);
+            checkBoxOnce.checked = dic_work[word]['once'];
 
             checkBoxPause.setAttribute("id", "form."+index+"-pause");
             checkBoxPause.setAttribute("type", "checkbox");
             checkBoxPause.setAttribute("name", "pause");
-            checkBoxPause.setAttribute("checked", dic_work[word]['pause']);
+            checkBoxPause.checked = dic_work[word]['pause'];
             /*if (percent != 10) {
                 inputStop.setAttribute("value", Math.round(balance * percent / 100));
             }
