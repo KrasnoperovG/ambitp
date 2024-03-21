@@ -267,8 +267,8 @@
                 'take': elem[3],
                 'stop': elem[4],
                 'trend': elem[5].toLocaleLowerCase(),
-                'once': elem[6],
-                'pause': elem[7]
+                'once': Boolean(elem[6].toLocaleLowerCase()),
+                'pause': Boolean(elem[7].toLocaleLowerCase())
             }
         }
 
@@ -301,8 +301,8 @@
                 'take': take,
                 'stop': stop,
                 'trend': trend,
-                'once': False,
-                'pause': False
+                'once': false,
+                'pause': false
             }
         }
 
@@ -312,8 +312,8 @@
             'take': '2',
             'stop': stop,
             'trend': 'buy',
-            'once': False,
-            'pause': False
+            'once': false,
+            'pause': false
         }
         console.log(symbols)
         console.log(dictionary)
