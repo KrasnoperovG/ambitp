@@ -329,7 +329,8 @@
             inputStop = document.createElement("input");
             inputTrend = document.createElement("select");
             buttonSubmit = document.createElement("button");
-            checkBox =document.createElement("input");
+            checkBoxOnce =document.createElement("input");
+            checkBoxPause =document.createElement("input");
 
             for (let item_symbol in symbols) {
                 let option_symbol = document.createElement("option");
@@ -390,10 +391,15 @@
             inputStop.setAttribute("id", "form." + index + "-stop");
             inputStop.setAttribute("name", "Stop");
 
-            checkBox.setAttribute("id", "form."+index+"-once");
-            checkBox.setAttribute("type", "checkbox");
-            checkBox.setAttribute("name", "once");
-            checkBox.setAttribute("value", "once");
+            checkBoxOnce.setAttribute("id", "form."+index+"-once");
+            checkBoxOnce.setAttribute("type", "checkbox");
+            checkBoxOnce.setAttribute("name", "once");
+            checkBoxOnce.setAttribute("value", "once");
+
+            checkBoxPause.setAttribute("id", "form."+index+"-pause");
+            checkBoxPause.setAttribute("type", "checkbox");
+            checkBoxPause.setAttribute("name", "pause");
+            checkBoxPause.setAttribute("value", "pause");
             /*if (percent != 10) {
                 inputStop.setAttribute("value", Math.round(balance * percent / 100));
             }
@@ -425,7 +431,8 @@
             form.appendChild(inputTake);
             form.appendChild(inputStop);
             form.appendChild(inputTrend);
-            form.appendChild(checkBox);
+            form.appendChild(checkBoxOnce);
+            form.appendChild(checkBoxPause);
             form.appendChild(buttonSubmit);
             document.body.appendChild(form);
 
@@ -501,7 +508,8 @@
                 const stop = document.getElementById(set + "-stop").value;
                 const trend = document.getElementById(set + "-trend").value;
                 const once = document.getElementById(set+"-once").checked;
-                data += symbol + ',' + quantity + ',' + additional + ',' + take + ',' + stop + ',' + trend + ',' + once + '\n';
+                const pause = document.getElementById(set+"-pause").checked;
+                data += symbol + ',' + quantity + ',' + additional + ',' + take + ',' + stop + ',' + trend + ',' + once + ',' + pause + '\n';
             });
 
             tg.sendData(data);
