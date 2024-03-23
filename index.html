@@ -39,7 +39,7 @@
 
         #header_name {
             background-color: Gainsboro;
-            font-size: 13px;
+            font-size: 12px;
         }
 
         input:focus {
@@ -72,7 +72,7 @@
             /*background: var(--tg-theme-button-color);*/
             /*color: var(--tg-theme-button-text-color);*/
             border: 0px solid #808080;
-            font-size: 15px;
+            font-size: 12px;
             background-color: White;
             /* min-width: 20px;
             max-width: 38px; */
@@ -102,29 +102,30 @@
             display: flex;
             flex-direction: row;
             align-items: center;
-            font-size: 15px;
+            font-size: 12px;
             justify-content: space-between;
             padding: 0px;
             /*border: 1px solid #000;*/
             border-radius: 5px;
             box-shadow: 0 0 8px Plum;
             margin: 4px;
-            width: 60%;
+            width: 33%;
         }
+      
         .created-form {
             display: flex;
             flex-direction: column;
+            margin-bottom: 10px;
         }
         .row {
             width: 100%;
             display: flex;
             justify-content: start;
-            gap: 2%;
             position: relative;
         }
         .row > * {
             width: 15% !important; 
-            text-align: center;
+            text-align: left;
            
         }
 
@@ -133,11 +134,12 @@
             display: flex;
             justify-content: end;
             gap: 2%;
+            padding-right: 5%;
         }
 
         .row-end > * {
             width: 15% !important; 
-            text-align: center;
+            text-align: left;
            
         }
 
@@ -145,12 +147,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
+
+        }
+        .check-box label {
+            color: black;
         }
 
         .created-btn {
-            position: absolute;
-            right: -5%;
-            width: 30px !important;
+           background-color: transparent;
             cursor: pointer;
         }
 
@@ -161,40 +165,63 @@
             flex-wrap: nowrap;
             display: flex;
             flex-direction: row;
-            gap: 2%;
+            /* gap: 2%; */
             align-items: left;
-            font-size: 19px;
-            justify-content: space-between;
+            font-size: 12px !important;
+            justify-content: start !important;
             padding: 0px;
             /*border: 1px solid #000;*/
             border-radius: 5px;
             box-shadow: 0 0 8px #C0C0C0;
             margin: 4px;
-            width: 60%;
+            width: 33%;
             /* max-width: 100%; */
             margin-top: 30px;
         }
         form_header > * {
             width: 15% !important; 
            text-align: center;
+           padding: 0;
         }
     
+        .header_name {
+            width: 30% !important;
+            text-align: center;
+            
+        }
+
+        .row > :nth-child(2) {
+            width: 35% !important;
+        }
+        .row > :nth-child(3) {
+            margin-left: 1%;
+        }
+        
+        .percent {
+            width: 10% !important;
+        }
+        .hidden-btn {
+            visibility: hidden;
+        }
+
+       
+
         @media screen and (max-width: 1000px) {
             form_header {
-                width: 90%;
+                width: 33%;
             }
 
             form {
-                width: 90%;
+                width: 33%;
             }
         }
         @media screen and (max-width: 800px) {
             form_header {
-                width: 90%;
+                width: 33%;
             }
 
             form {
-                width: 90%;
+                width: 33%;
             }
         }
     
@@ -246,17 +273,18 @@
    
     
             
-    <form_header id="aaaaaaa" style="justify-content: space-evenly;">
+    <form_header id="aaaaaaa" >
         <!-- <span style="margin: 0 5px;"></span>added span with margin to create space between buttons -->
-        <button name="Symbol" id="header_name">SYMBOL</button>
+        <button name="Symbol" id="header_name" class="header_name">SYMBOL</button>
         <!-- <span style="margin: 0 6px;"></span>added span with margin to create space between buttons -->
         <button name="Vol" id="header_name">VOL</button>
         <!-- <span id ="span2" style="margin: 0 8px;"></span>added span with margin to create space between buttons -->
-        <button name="add" id="header_name">%</button>
+        <button name="add" id="header_name" class="percent">%</button>
         <!-- <span style="margin: 0 2px;"></span>added span with margin to create space between buttons -->
         <button name="take" id="header_name">TAKE</button>
         <button name="stop" id="header_name">STOP</button>
         <button name="trend" id="header_name">TREND</button>
+        <button class="created-btn hidden-btn" id="form.3-button">❌</button>
         <!-- <span style="margin: 0 16px;"></span>added span with margin to create space between buttons -->
     </form_header>
     <script>
