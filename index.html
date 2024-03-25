@@ -39,7 +39,7 @@
 
         #header_name {
             background-color: Gainsboro;
-            font-size: 12px;
+            font-size: 14px;  /*размер текста в строке с заголовками таблицы*/
         }
 
         input:focus {
@@ -72,7 +72,7 @@
             /*background: var(--tg-theme-button-color);*/
             /*color: var(--tg-theme-button-text-color);*/
             border: 0px solid #808080;
-            font-size: 12px;
+            font-size: 14px;    /*размер текста полей ввода */
             background-color: White;
             /* min-width: 20px;
             max-width: 38px; */
@@ -102,14 +102,15 @@
             display: flex;
             flex-direction: row;
             align-items: center;
-            font-size: 12px;
+            font-size: 14px;  /*размер текста в формах*/
             justify-content: space-between;
             padding: 0px;
             /*border: 1px solid #000;*/
             border-radius: 5px;
             box-shadow: 0 0 8px Plum;
             margin: 4px;
-            width: 33%;
+            width: 100%;
+            max-width: 430px; /* максимальная длинна строки с инпутами*/
         }
       
         .created-form {
@@ -124,8 +125,8 @@
             position: relative;
         }
         .row > * {
-            width: 15% !important; 
-            text-align: left;
+            width: 15% !important; /*длинна колонок для всех элементов в строке с инпутами*/
+            text-align: left; /* положение элементов по левому краю в строке с инпутами*/
            
         }
 
@@ -134,12 +135,12 @@
             display: flex;
             justify-content: end;
             gap: 2%;
-            padding-right: 5%;
+            padding-right: 4%;
         }
 
         .row-end > * {
-            width: 15% !important; 
-            text-align: left;
+            width: 15% !important; /*длинна колонок для всех элементов в строке с чекбоксами (once, pause)*/
+            text-align: left; /* положение элементов по левому краю в строке с чекбоксами*/
            
         }
 
@@ -156,6 +157,7 @@
         .created-btn {
            background-color: transparent;
             cursor: pointer;
+            text-align: right;
         }
 
         form_header {
@@ -174,27 +176,59 @@
             border-radius: 5px;
             box-shadow: 0 0 8px #C0C0C0;
             margin: 4px;
-            width: 33%;
+            width: 100%;
             /* max-width: 100%; */
             margin-top: 30px;
+             max-width: 430px;  /*максимальная длина строки с заголовками таблицы*/
         }
         form_header > * {
-            width: 15% !important; 
+            width: 15% !important; /* длина каждой колонки в строке с заголовками таблицы*/
            text-align: center;
            padding: 0;
         }
+
+        form_header :nth-child(2) {
+            width: 10% !important; /* длина колонки 'vol' в строке с заголовками таблицы*/
+           text-align: center;
+           padding-left: 3%; /*отступ слева для колонки 'vol' в строке с заголовками таблицы*/
+        }
+        form_header :nth-child(3) {
+            width: 15% !important; /* длина колонки '%' в строке с заголовками таблицы*/
+           text-align: left;
+           padding-left: 3%;/*отступ слева для колонки '%' в строке с заголовками таблицы*/
+        }
+        form_header :nth-child(4) {
+            width: 20% !important; /* длина колонки 'take' в строке с заголовками таблицы*/
+           text-align: left;
+           padding-left: 2%; /*отступ слева для колонки 'take' в строке с заголовками таблицы*/
+        }
     
         .header_name {
-            width: 30% !important;
+            width: 30% !important; /* длина колонки 'symbol' в строке с заголовками таблицы*/
             text-align: center;
             
         }
 
         .row > :nth-child(2) {
-            width: 35% !important;
+            width: 25% !important; /* длина колонки с символом пары в строке с инпутами*/
+            min-width: 25% !important; /* минимальная длина колонки с символом в строке с инпутами*/
+            max-width: 25% !important; /* максимальная длина колонки с символом в строке с инпутами*/
         }
         .row > :nth-child(3) {
             margin-left: 1%;
+            width: 10% !important;/* длина колонки "vol" в строке с инпутами*/
+        }
+        .row > :nth-child(4) {
+            width: 15% !important; /* длина колонки "%" в строке с инпутами*/
+            max-width: 20% !important; /* максимальная длина колонки "%" в строке с инпутами*/
+            overflow: hidden;
+            padding-left: 2%; /* отступ слева колонки "%" в строке с инпутами*/
+        }
+        .row > :nth-child(5) {
+              max-width: 20% !important; /* максимальная длина колонки "take" в строке с инпутами*/
+            width: 20% !important; /* длина колонки "take" в строке с инпутами*/
+            overflow: hidden;
+            padding-left: 1%; /* отступ слева колонки "take" в строке с инпутами*/
         }
         
         .percent {
@@ -206,24 +240,7 @@
 
        
 
-        @media screen and (max-width: 1000px) {
-            form_header {
-                width: 33%;
-            }
-
-            form {
-                width: 33%;
-            }
-        }
-        @media screen and (max-width: 800px) {
-            form_header {
-                width: 33%;
-            }
-
-            form {
-                width: 33%;
-            }
-        }
+        
     
     
         /* Это код настроек для SBS 
@@ -500,12 +517,14 @@
             inputAditional.setAttribute("name", "Aditional");
             inputAditional.setAttribute("value", dic_work[word]['addition'])
             inputAditional.setAttribute("size", "2");
+            inputAditional.setAttribute("maxlength", "6");
 
             inputTake.setAttribute("type", "text");
             inputTake.setAttribute("id", "form." + index + "-take");
             inputTake.setAttribute("name", "Take");
             inputTake.setAttribute("value", dic_work[word]['take']);
             inputTake.setAttribute("size", "2");
+            inputTake.setAttribute("maxlength", "6");
 
             inputStop.setAttribute("type", "text");
             inputStop.setAttribute("id", "form." + index + "-stop");
@@ -666,6 +685,8 @@
         })
     </script>
 
+
+    
    
 
 </body>
