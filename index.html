@@ -133,6 +133,7 @@
         .row-end {
             width: 100%;
             display: flex;
+            flex-direction: row;
             justify-content: end;
             gap: 2%;
             padding-right: 4%;
@@ -158,6 +159,7 @@
            background-color: transparent;
             cursor: pointer;
             text-align: right;
+            margin-left: -5%; /* уменьшить ширину блока кнопки, чтобы слово "reverse" полностью влезало*/
         }
 
         form_header {
@@ -190,43 +192,46 @@
         form_header :nth-child(2) {
             width: 14% !important; /* длина колонки 'vol' в строке с заголовками таблицы*/
            text-align: center;
-           padding-left: 6%; /*отступ слева для колонки 'vol' в строке с заголовками таблицы*/
+           padding-left: 2%; /*отступ слева для колонки 'vol' в строке с заголовками таблицы*/
         }
         form_header :nth-child(3) {
             width: 14% !important; /* длина колонки '%' в строке с заголовками таблицы*/
            text-align: left;
-           padding-left: 7%;/*отступ слева для колонки '%' в строке с заголовками таблицы*/
+           padding-left: 6%;/*отступ слева для колонки '%' в строке с заголовками таблицы*/
         }
         form_header :nth-child(4) {
             width: 20% !important; /* длина колонки 'take' в строке с заголовками таблицы*/
            text-align: left;
-           padding-left: 5%; /*отступ слева для колонки 'take' в строке с заголовками таблицы*/
+           padding-left: 4%; /*отступ слева для колонки 'take' в строке с заголовками таблицы*/
         }
         form_header :nth-child(5) {
             width: 20% !important; /* длина колонки 'stop' в строке с заголовками таблицы*/
            text-align: left;
-           padding-left: 3%; /*отступ слева для колонки 'stop' в строке с заголовками таблицы*/
+           padding-left: 1%; /*отступ слева для колонки 'stop' в строке с заголовками таблицы*/
         }
         form_header :nth-child(6) {
             width: 20% !important; /* длина колонки 'trend' в строке с заголовками таблицы*/
            text-align: left;
-           padding-left: 2%; /*отступ слева для колонки 'trend' в строке с заголовками таблицы*/
+           padding-left: 0; /*отступ слева для колонки 'trend' в строке с заголовками таблицы*/
         }
         .header_name {
             width: 33% !important; /* длина колонки 'symbol' в строке с заголовками таблицы*/
             text-align: center;
             
         }
-
-        .row > :nth-child(2) {
+        /*.row > :nth-child(2)*/
+        .select2, .js-select2 {
             width: 27% !important; /* длина колонки с символом пары в строке с инпутами*/
             min-width: 27% !important; /* минимальная длина колонки с символом в строке с инпутами*/
             max-width: 27% !important; /* максимальная длина колонки с символом в строке с инпутами*/
         }
-        .row > :nth-child(3) {
-            margin-left: 1%;
-            width: 15% !important;/* длина колонки "vol" в строке с инпутами*/
-        }
+        /*.row > :nth-child(3)*/
+       input[name="Quantity"] {
+           margin-left: 1%;
+            width: 15% !important; /*длина колонки "vol" в строке с инпутами*/
+            max-width: 15% !important;
+        } 
+        
         .row > :nth-child(4) {
             width: 14% !important; /* длина колонки "%" в строке с инпутами*/
             max-width: 14% !important; /* максимальная длина колонки "%" в строке с инпутами*/
@@ -244,6 +249,7 @@
         }
         .row > :nth-child(7) {              
             padding-left: 2%; /* отступ слева колонки "trend" в строке с инпутами*/
+             width: 20% !important; /* увеличить ширину колонки "trend" в строке с инпутами, чтобы слово "reverse" полностью влезало*/
         }
         .percent {
             width: 10% !important;
@@ -385,17 +391,23 @@
         }
         for (var jj in dctnr) {
             var elem = dctnr[jj].split('-');
-            if (elem[6] == 'NONE'){ 
-                var flagonce = true }
             if (elem[6] == 'TRUE'){ 
                 var flagonce = true }
             if (elem[6] == 'FALSE'){ 
                 var flagonce = false }
-            /*else {var flagonce = false}*/
+            else {var flagonce = false}
             if (elem[7] == 'TRUE'){
                 var flagpause = true
             }
             else {flagpause = false}
+            if (elem[8] == 'TRUE'){ 
+                var flagreduce = true }
+            else
+                {var flagreduce = false}
+            if (elem[9] == 'TRUE'){ 
+                var flaglock = true }
+            else
+                {var flaglock = false}
             dictionary[elem[0]] = {
                 'quantity': elem[1],
                 'addition': elem[2],
@@ -403,7 +415,9 @@
                 'stop': elem[4],
                 'trend': elem[5].toLocaleLowerCase(),
                 'once': flagonce,
-                'pause': flagpause
+                'pause': flagpause,
+                'reduce': flagreduce,
+                'lock': flaglock
             }
         }
 
@@ -437,7 +451,9 @@
                 'stop': stop,
                 'trend': trend,
                 'once': false,
-                'pause': false
+                'pause': false,
+                'reduce': false,
+                'lock': false
             }
         }
 
@@ -448,7 +464,9 @@
             'stop': stop,
             'trend': 'buy',
             'once': false,
-            'pause': false
+            'pause': false,
+            'reduce': false,
+            'lock': false
         }
         console.log(symbols)
         console.log(dictionary)
@@ -474,12 +492,19 @@
             buttonSubmit = document.createElement("button");
             checkBoxOnce =document.createElement("input");
             checkBoxPause =document.createElement("input");
-            div1 = document.createElement('div');
-            div2 = document.createElement('div');
+            checkBoxReduce = document.createElement("input");
+            checkBoxLock = document.createElement("input");
+            row = document.createElement('div');
+            row2 = document.createElement('div');
             div3 = document.createElement('div');
             div4 = document.createElement('div');
-            label = document.createElement('label');
-            label2 = document.createElement('label');
+            div5 = document.createElement('div');
+            div6 = document.createElement('div');
+            label_once = document.createElement('label');
+            label_pause = document.createElement('label');
+            label_reduce = document.createElement('label');
+            label_lock = document.createElement('label');
+            
 
             for (let item_symbol in symbols) {
                 let option_symbol = document.createElement("option");
@@ -506,17 +531,19 @@
 
             form.setAttribute("id", "form." + index);
             form.setAttribute("class", "created-form");
-            div1.setAttribute('class', 'row');
-            div2.setAttribute('class', 'row-end');
+            row.setAttribute('class', 'row');
+            row2.setAttribute('class', 'row-end');
             div3.setAttribute('class', 'check-box');
             div4.setAttribute('class', 'check-box');
+            div5.setAttribute('class', 'check-box');
+            div6.setAttribute('class', 'check-box');
 
             inputSymbol.setAttribute("class", "js-select2");
             inputSymbol.setAttribute("placeholder", "symbols");
             inputSymbol.setAttribute("name", index);
             inputSymbol.setAttribute("id", "form." + index + ".symbol");
 
-            inputTrend.setAttribute("name", index);
+            inputTrend.setAttribute("name", index);    
             inputTrend.setAttribute("id", "form." + index + "-trend");
 
             inputQuantity.setAttribute("type", "text");
@@ -552,15 +579,29 @@
             checkBoxOnce.setAttribute("type", "checkbox");
             checkBoxOnce.setAttribute("name", "once");
             checkBoxOnce.checked = dic_work[word]['once'];
-            label.setAttribute("for", "form."+index+"-once");
-            label.textContent = "once";
+            label_once.setAttribute("for", "form."+index+"-once");
+            label_once.textContent = "once";
 
             checkBoxPause.setAttribute("id", "form."+index+"-pause");
             checkBoxPause.setAttribute("type", "checkbox");
             checkBoxPause.setAttribute("name", "pause");
             checkBoxPause.checked = dic_work[word]['pause'];
-            label2.setAttribute("for", "form."+index+"-pause");
-            label2.textContent = "pause";
+            label_pause.setAttribute("for", "form."+index+"-pause");
+            label_pause.textContent = "pause";
+
+            checkBoxReduce.setAttribute("id", "form."+index+"-reduce");
+            checkBoxReduce.setAttribute("type", "checkbox");
+            checkBoxReduce.setAttribute("name", "reduce");
+            checkBoxReduce.checked = dic_work[word]['reduce'];
+            label_reduce.setAttribute("for", "form."+index+"-reduce");
+            label_reduce.textContent = "reduce";
+            
+            checkBoxLock.setAttribute("id", "form."+index+"-lock");
+            checkBoxLock.setAttribute("type", "checkbox");
+            checkBoxLock.setAttribute("name", "lock");
+            checkBoxLock.checked = dic_work[word]['lock'];
+            label_lock.setAttribute("for", "form."+index+"-lock");
+            label_lock.textContent = "lock";
             /*if (percent != 10) {
                 inputStop.setAttribute("value", Math.round(balance * percent / 100));
             }
@@ -587,21 +628,27 @@
             buttonSubmit.setAttribute("id", "form." + index + "-button");
             buttonSubmit.setAttribute("class", "created-btn");
 
-            form.appendChild(div1);
-            div1.appendChild(inputSymbol);
-            div1.appendChild(inputQuantity);
-            div1.appendChild(inputAditional);
-            div1.appendChild(inputTake);
-            div1.appendChild(inputStop);
-            div1.appendChild(inputTrend);
-            div1.appendChild(buttonSubmit);
-            form.appendChild(div2);
-            div2.appendChild(div3);
+            form.appendChild(row);
+            row.appendChild(inputSymbol);
+            row.appendChild(inputQuantity);
+            row.appendChild(inputAditional);
+            row.appendChild(inputTake);
+            row.appendChild(inputStop);
+            row.appendChild(inputTrend);
+            row.appendChild(buttonSubmit);
+            form.appendChild(row2);
+            row2.appendChild(div3);
             div3.appendChild(checkBoxOnce);
-            div3.appendChild(label);
-            div2.appendChild(div4);
+            div3.appendChild(label_once);
+            row2.appendChild(div4);
             div4.appendChild(checkBoxPause);
-            div4.appendChild(label2);
+            div4.appendChild(label_pause);
+            row2.appendChild(div5);
+            div5.appendChild(checkBoxReduce);
+            div5.appendChild(label_reduce);
+            row2.appendChild(div6);
+            div6.appendChild(checkBoxLock);
+            div6.appendChild(label_lock);
             // form.appendChild(inputSymbol);
             // form.appendChild(inputQuantity);
             // form.appendChild(inputAditional);
@@ -686,7 +733,9 @@
                 const trend = document.getElementById(set + "-trend").value;
                 const once = document.getElementById(set+"-once").checked;
                 const pause = document.getElementById(set+"-pause").checked;
-                data += symbol + ',' + quantity + ',' + additional + ',' + take + ',' + stop + ',' + trend + ',' + once + ',' + pause + '\n';
+                const reduce = document.getElementById(set+"-reduce").checked;
+                const lock = document.getElementById(set+"-lock").checked;
+                data += symbol + ',' + quantity + ',' + additional + ',' + take + ',' + stop + ',' + trend + ',' + once + ',' + pause + ',' + reduce +',' + lock + '\n';
             });
 
             tg.sendData(data);
@@ -704,8 +753,6 @@
     </script>
 
 
-    
-   
 
 </body>
 </html>
