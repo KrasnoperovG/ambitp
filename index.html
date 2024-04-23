@@ -414,6 +414,10 @@
                 var flaglock = true }
             else
                 {var flaglock = false}
+            if (elem[10] == 'TRUE'){ 
+                var flagnonzero = true }
+            else
+                {var flagnonzero = false}
             dictionary[elem[0]] = {
                 'quantity': elem[1],
                 'addition': elem[2],
@@ -423,7 +427,8 @@
                 'once': flagonce,
                 'pause': flagpause,
                 'reduce': flagreduce,
-                'lock': flaglock
+                'lock': flaglock,
+                'nonzero': flagnonzero
             }
         }
 
@@ -459,7 +464,8 @@
                 'once': false,
                 'pause': false,
                 'reduce': false,
-                'lock': false
+                'lock': false,
+                'nonzero': false
             }
         }
 
@@ -472,7 +478,8 @@
             'once': false,
             'pause': false,
             'reduce': false,
-            'lock': false
+            'lock': false,
+            'nonzero': false
         }
         console.log(symbols)
         console.log(dictionary)
@@ -500,16 +507,19 @@
             checkBoxPause =document.createElement("input");
             checkBoxReduce = document.createElement("input");
             checkBoxLock = document.createElement("input");
+            checkBoxNonzero = document.createElement("input");
             row = document.createElement('div');
             row2 = document.createElement('div');
             div3 = document.createElement('div');
             div4 = document.createElement('div');
             div5 = document.createElement('div');
             div6 = document.createElement('div');
+            div7 = document.createElement('div');
             label_once = document.createElement('label');
             label_pause = document.createElement('label');
             label_reduce = document.createElement('label');
             label_lock = document.createElement('label');
+            label_nonzero = document.createElement('label');
             
 
             for (let item_symbol in symbols) {
@@ -608,6 +618,13 @@
             checkBoxLock.checked = dic_work[word]['lock'];
             label_lock.setAttribute("for", "form."+index+"-lock");
             label_lock.textContent = "lock";
+            
+            checkBoxNonzero.setAttribute("id", "form."+index+"-nonzero");
+            checkBoxNonzero.setAttribute("type", "checkbox");
+            checkBoxNonzero.setAttribute("name", "nonzero");
+            checkBoxNonzero.checked = dic_work[word]['nonzero'];
+            label_nonzero.setAttribute("for", "form."+index+"-nonzero");
+            label_nonzero.textContent = "nonzero";
             /*if (percent != 10) {
                 inputStop.setAttribute("value", Math.round(balance * percent / 100));
             }
@@ -655,6 +672,9 @@
             row2.appendChild(div6);
             div6.appendChild(checkBoxLock);
             div6.appendChild(label_lock);
+            row2.appendChild(div7);
+            div7.appendChild(checkBoxNonzero);
+            div7.appendChild(label_nonzero);
             // form.appendChild(inputSymbol);
             // form.appendChild(inputQuantity);
             // form.appendChild(inputAditional);
@@ -741,7 +761,8 @@
                 const pause = document.getElementById(set+"-pause").checked;
                 const reduce = document.getElementById(set+"-reduce").checked;
                 const lock = document.getElementById(set+"-lock").checked;
-                data += symbol + ',' + quantity + ',' + additional + ',' + take + ',' + stop + ',' + trend + ',' + once + ',' + pause + ',' + reduce +',' + lock + '\n';
+                const nonzero = document.getElementById(set+"-nonzero").checked;
+                data += symbol + ',' + quantity + ',' + additional + ',' + take + ',' + stop + ',' + trend + ',' + once + ',' + pause + ',' + reduce +',' + lock + ',' + nonzero + '\n';
             });
 
             tg.sendData(data);
