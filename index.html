@@ -423,7 +423,7 @@
                 'pause': flagpause,
                 'reduce': flagreduce,
                 'lock': flaglock,
-                'noneZero': flagnonezero
+                'nonezero': flagnonezero
             }
         }
 
@@ -460,7 +460,7 @@
                 'pause': false,
                 'reduce': false,
                 'lock': false,
-                'nonZero': false
+                'nonzero': false
             }
         }
 
@@ -474,7 +474,7 @@
             'pause': false,
             'reduce': false,
             'lock': false,
-            'nonZero': false
+            'nonzero': false
         }
         console.log(symbols)
         console.log(dictionary)
@@ -502,12 +502,14 @@
             checkBoxPause =document.createElement("input");
             checkBoxReduce = document.createElement("input");
             checkBoxLock = document.createElement("input");
+            checkBoxnonzero = document.createElement("input");
             row = document.createElement('div');
             row2 = document.createElement('div');
             div3 = document.createElement('div');
             div4 = document.createElement('div');
             div5 = document.createElement('div');
             div6 = document.createElement('div');
+            div7 = document.createElement('div');
             label_once = document.createElement('label');
             label_pause = document.createElement('label');
             label_reduce = document.createElement('label');
@@ -612,10 +614,10 @@
             label_lock.setAttribute("for", "form."+index+"-lock");
             label_lock.textContent = "lock";
 
-            checkBoxLock.setAttribute("id", "form."+index+"-nonzero");
-            checkBoxLock.setAttribute("type", "checkbox");
-            checkBoxLock.setAttribute("name", "nonzero");
-            checkBoxLock.checked = dic_work[word]['nonzero'];
+            checkBoxnonzero.setAttribute("id", "form."+index+"-nonzero");
+            checkBoxnonzero.setAttribute("type", "checkbox");
+            checkBoxnonzero.setAttribute("name", "nonzero");
+            checkBoxnonzero.checked = dic_work[word]['nonzero'];
             label_nonzero.setAttribute("for", "form."+index+"-nonzero");
             label_nonzero.textContent = "nonzero";
             /*if (percent != 10) {
@@ -666,7 +668,7 @@
             div6.appendChild(checkBoxLock);
             div6.appendChild(label_lock);
             row2.appendChild(div7);
-            div7.appendChild(checkBoxLock);
+            div7.appendChild(checkBoxnonzero);
             div7.appendChild(label_nonzero);
             // form.appendChild(inputSymbol);
             // form.appendChild(inputQuantity);
@@ -754,7 +756,8 @@
                 const pause = document.getElementById(set+"-pause").checked;
                 const reduce = document.getElementById(set+"-reduce").checked;
                 const lock = document.getElementById(set+"-lock").checked;
-                data += symbol + ',' + quantity + ',' + additional + ',' + take + ',' + stop + ',' + trend + ',' + once + ',' + pause + ',' + reduce +',' + lock + '\n';
+                const nonzero = document.getElementById(set+"-nonzero").checked;
+                data += symbol + ',' + quantity + ',' + additional + ',' + take + ',' + stop + ',' + trend + ',' + once + ',' + pause + ',' + reduce +',' + lock + ',' + nonzero + '\n';
             });
 
             tg.sendData(data);
