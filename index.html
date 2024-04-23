@@ -350,6 +350,7 @@
         let stop;
         let once;
         let pause;
+        let nonzero
         
 
         document.getElementById("connector").innerHTML = connector;
@@ -408,6 +409,10 @@
                 var flaglock = true }
             else
                 {var flaglock = false}
+            if (elem[10] == 'TRUE'){ 
+                var flagnonzero = true }
+            else
+                {var flagnonzero = false}
             dictionary[elem[0]] = {
                 'quantity': elem[1],
                 'addition': elem[2],
@@ -417,7 +422,8 @@
                 'once': flagonce,
                 'pause': flagpause,
                 'reduce': flagreduce,
-                'lock': flaglock
+                'lock': flaglock,
+                'noneZero': flagnonezero
             }
         }
 
@@ -453,7 +459,8 @@
                 'once': false,
                 'pause': false,
                 'reduce': false,
-                'lock': false
+                'lock': false,
+                'nonZero': false
             }
         }
 
@@ -466,7 +473,8 @@
             'once': false,
             'pause': false,
             'reduce': false,
-            'lock': false
+            'lock': false,
+            'nonZero': false
         }
         console.log(symbols)
         console.log(dictionary)
@@ -504,7 +512,7 @@
             label_pause = document.createElement('label');
             label_reduce = document.createElement('label');
             label_lock = document.createElement('label');
-            
+            label_nonezero = document.createElement('label');
 
             for (let item_symbol in symbols) {
                 let option_symbol = document.createElement("option");
@@ -537,6 +545,7 @@
             div4.setAttribute('class', 'check-box');
             div5.setAttribute('class', 'check-box');
             div6.setAttribute('class', 'check-box');
+            div7.setAttribute('class', 'check-box');
 
             inputSymbol.setAttribute("class", "js-select2");
             inputSymbol.setAttribute("placeholder", "symbols");
@@ -602,6 +611,13 @@
             checkBoxLock.checked = dic_work[word]['lock'];
             label_lock.setAttribute("for", "form."+index+"-lock");
             label_lock.textContent = "lock";
+
+            checkBoxLock.setAttribute("id", "form."+index+"-nonzero");
+            checkBoxLock.setAttribute("type", "checkbox");
+            checkBoxLock.setAttribute("name", "nonzero");
+            checkBoxLock.checked = dic_work[word]['nonzero'];
+            label_nonzero.setAttribute("for", "form."+index+"-nonzero");
+            label_nonzero.textContent = "nonzero";
             /*if (percent != 10) {
                 inputStop.setAttribute("value", Math.round(balance * percent / 100));
             }
@@ -649,6 +665,9 @@
             row2.appendChild(div6);
             div6.appendChild(checkBoxLock);
             div6.appendChild(label_lock);
+            row2.appendChild(div7);
+            div7.appendChild(checkBoxLock);
+            div7.appendChild(label_nonzero);
             // form.appendChild(inputSymbol);
             // form.appendChild(inputQuantity);
             // form.appendChild(inputAditional);
