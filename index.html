@@ -16,6 +16,14 @@
         .select2 {
             color: black;            
             font-size: 13px;
+            width: 27% !important; /* длина колонки с символом пары в строке с инпутами*/
+            min-width: 27% !important; /* минимальная длина колонки с символом в строке с инпутами*/
+            max-width: 27% !important; 
+        }
+        .js-select2 {
+            width: 27% !important; /* длина колонки с символом пары в строке с инпутами*/
+            min-width: 27% !important; /* минимальная длина колонки с символом в строке с инпутами*/
+            max-width: 27% !important; 
         }
         .select2-search__field {
             width: 80px;
@@ -137,10 +145,12 @@
 
         .row-end {
             width: 100%;
+
+            max-width: 100%;
             display: flex;
             flex-direction: row;
-            justify-content: end;
-            gap: 2%;
+            justify-content: space-around;
+            
             padding-right: 4%;
         }
 
@@ -224,8 +234,10 @@
             text-align: center;
             
         }
+     
 
-        .row > :nth-child(2) {
+       
+        .row > :nth-child(1) {
             width: 27% !important; /* длина колонки с символом пары в строке с инпутами*/
             min-width: 27% !important; /* минимальная длина колонки с символом в строке с инпутами*/
             max-width: 27% !important; /* максимальная длина колонки с символом в строке с инпутами*/
@@ -233,6 +245,7 @@
         .row > :nth-child(3) {
             margin-left: 1%;
             width: 15% !important;/* длина колонки "vol" в строке с инпутами*/
+            max-width: 15% !important;
         }
         .row > :nth-child(4) {
             width: 14% !important; /* длина колонки "%" в строке с инпутами*/
@@ -252,6 +265,11 @@
         .row > :nth-child(7) {              
             padding-left: 2%; /* отступ слева колонки "trend" в строке с инпутами*/
              width: 20% !important; /* увеличить ширину колонки "trend" в строке с инпутами, чтобы слово "reverse" полностью влезало*/
+        }
+        .volume {
+            margin-left: 1%;
+            width: 15% !important;/* длина колонки "vol" в строке с инпутами*/
+            max-width: 15% !important;
         }
         .percent {
             width: 10% !important;
@@ -553,6 +571,8 @@
             div4.setAttribute('class', 'check-box');
             div5.setAttribute('class', 'check-box');
             div6.setAttribute('class', 'check-box');
+            div7.setAttribute('class', 'check-box');
+            
 
             inputSymbol.setAttribute("class", "js-select2");
             inputSymbol.setAttribute("placeholder", "symbols");
@@ -572,6 +592,7 @@
                 inputQuantity.setAttribute("value", dic_work[word]['quantity']);
             }
             inputQuantity.setAttribute("size", "2");
+            inputQuantity.setAttribute("class", "volume");
 
             inputAditional.setAttribute("type", "text");
             inputAditional.setAttribute("id", "form." + index + "-aditional");
